@@ -1,5 +1,5 @@
 import { t } from "@rbxts/t";
-import array from "commands/array";
+import array from "command/array";
 
 //if number ends with x highlight it.
 const commands = {

@@ -1,4 +1,5 @@
 import Roact from "@rbxts/roact"
+import commands from "commands"
 import format from "format"
 
 export class message extends Roact.Component {
@@ -33,7 +34,7 @@ export class commandBar extends Roact.Component {
                     Position={new UDim2(0, 0, 0.9, 0)}
                     RichText={true}
                     Size={new UDim2(1, 0, 0.1, 0)}
-                    Text={this.displayText[0].getValue()}
+                    Text={this.displayText[0]}
                     TextColor3={Color3.fromRGB(255, 255, 255)}
                     TextSize={14}
                     TextXAlignment={Enum.TextXAlignment.Left}
@@ -55,9 +56,33 @@ export class commandBar extends Roact.Component {
                     TextXAlignment={Enum.TextXAlignment.Left}
                     Size={new UDim2(1, 0, 0.1, 0)}
                     TextSize={14}
+                    TextTransparency={1}
+                    ClearTextOnFocus={false}
+                    Event={{
+                        FocusLost: (box, enter) => {
+                            if (!enter) return;
+
+                            let text = box.Text;
+
+                            let split = text.split(' ');
+
+                            let command = split[0] as keyof typeof commands;
+
+                            split.shift()
+
+                            if (commands[command]) {
+                                type p = Parameters<typeof commands[typeof command]["callback"]>
+                                let s = split as p
+                                let result = commands[command].callback(...s)
+                            }
+                        },
+                    }}
                     Change={{
                         Text: (thisbox) => {
+                            print('text changed')
                             this.displayText[1](format(thisbox.Text))
+                            print(this.displayText[0].getValue())
+                            print(format(thisbox.Text))
                         }
                     }}
                 />
