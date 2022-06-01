@@ -6,8 +6,8 @@
 	],
 	"tree": {
 		"$className": "DataModel",
-		"ServerScriptService": {
-			"$className": "ServerScriptService",
+		"ServerStorage": {
+			"$className": "ServerStorage",
 			"muon": {
 				"$path": "./default.project.json"
 			}

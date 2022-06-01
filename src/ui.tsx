@@ -1,6 +1,7 @@
 import Roact from "@rbxts/roact"
 import commands from "commands"
 import format from "format"
+import { keywords } from "keywords"
 
 export class message extends Roact.Component {
     render() {
@@ -72,17 +73,16 @@ export class commandBar extends Roact.Component {
 
                             if (commands[command]) {
                                 type p = Parameters<typeof commands[typeof command]["callback"]>
+                                let cmds = commands[command]["callback"] as (...args: unknown[]) => number
                                 let s = split as p
-                                let result = commands[command].callback(...s)
+                                let result = cmds(...s)
+                                print(result, 'was the output of the command')
                             }
                         },
                     }}
                     Change={{
                         Text: (thisbox) => {
-                            print('text changed')
                             this.displayText[1](format(thisbox.Text))
-                            print(this.displayText[0].getValue())
-                            print(format(thisbox.Text))
                         }
                     }}
                 />
