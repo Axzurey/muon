@@ -9,8 +9,11 @@ export default function array(name: string, axes_: string, amount: number) {
 
     let x = convert(axes_);
     if (x[0] !== 'Vector3') {
+        print('does not match with vector3!')
         return 1; //it is unable to be matched with a vector3
     };
+
+    //array hello vector3[1, 0, 1] 8
 
     //test: array hello vector3[0,1,1] 5
 
